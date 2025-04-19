@@ -2,7 +2,49 @@ import sys
 import time
 from pathlib import Path
 
-file_map = {".txt": "TEXT", ".pdf": "PDF", ".json": "JSON", "_": "REMNANT"}
+file_map = {
+    ".txt": "TEXT",
+    ".md": "TEXT",
+    ".pdf": "PDF",
+    ".doc": "DOCS",
+    ".docx": "DOCS",
+    ".xls": "SPREADSHEETS",
+    ".xlsx": "SPREADSHEETS",
+    ".csv": "SPREADSHEETS",
+    ".json": "DATA",
+    ".xml": "DATA",
+    ".yaml": "DATA",
+    ".yml": "DATA",
+    ".py": "CODE",
+    ".js": "CODE",
+    ".html": "CODE",
+    ".css": "CODE",
+    ".java": "CODE",
+    ".c": "CODE",
+    ".cpp": "CODE",
+    ".go": "CODE",
+    ".sh": "CODE",
+    ".zip": "ARCHIVES",
+    ".tar": "ARCHIVES",
+    ".gz": "ARCHIVES",
+    ".rar": "ARCHIVES",
+    ".7z": "ARCHIVES",
+    ".mp3": "AUDIO",
+    ".wav": "AUDIO",
+    ".flac": "AUDIO",
+    ".mp4": "VIDEO",
+    ".mov": "VIDEO",
+    ".mkv": "VIDEO",
+    ".avi": "VIDEO",
+    ".jpg": "IMAGES",
+    ".jpeg": "IMAGES",
+    ".png": "IMAGES",
+    ".gif": "IMAGES",
+    ".svg": "IMAGES",
+    ".webp": "IMAGES",
+    ".ico": "IMAGES",
+    "_": "REMNANT",
+}
 
 folder_path = input("Please enter the full path to the folder to organize: ")
 working_dir = Path(folder_path)
