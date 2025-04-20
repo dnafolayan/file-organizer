@@ -8,10 +8,12 @@ try:
         file_map = json.load(file_mapping)
 except FileNotFoundError as e:
     print(f"Error: {e}")
+    sys.exit(1)
 except json.JSONDecodeError as e:
     print(f"Invalid JSON format: {e}")
+    sys.exit(1)
 
-folder_path = input("Please enter the full path to the folder to organize: ")
+folder_path = input("Please enter the full path to the folder to organize: ").strip()
 working_dir = Path(folder_path)
 
 if not working_dir.exists() or not working_dir.is_dir():
@@ -27,6 +29,7 @@ def create_folder(folder):
             folder_path.mkdir(parents=True, exist_ok=True)
         except Exception as e:
             print(f"Error creating folder '{folder_path}': {e}")
+            sys.exit(1)
 
 
 def move_files():
@@ -54,10 +57,15 @@ def move_files():
 
         except FileNotFoundError as e:
             print(f"{file_path} was not found. Error: {e}")
+            sys.exit(1)
+
         except PermissionError as e:
             print(f"Permission denied for {file_path}. Error: {e}")
+            sys.exit(1)
+
         except OSError as e:
             print(f"Failed to move {file_path}: {e}")
+            sys.exit(1)
 
     t2 = time.time()
     print(f"Finished in {t2 - t1:.2f} seconds")
