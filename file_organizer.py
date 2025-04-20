@@ -1,50 +1,15 @@
+import json
 import sys
 import time
 from pathlib import Path
 
-file_map = {
-    ".txt": "TEXT",
-    ".md": "TEXT",
-    ".pdf": "PDF",
-    ".doc": "DOCS",
-    ".docx": "DOCS",
-    ".xls": "SPREADSHEETS",
-    ".xlsx": "SPREADSHEETS",
-    ".csv": "SPREADSHEETS",
-    ".json": "DATA",
-    ".xml": "DATA",
-    ".yaml": "DATA",
-    ".yml": "DATA",
-    ".py": "CODE",
-    ".js": "CODE",
-    ".html": "CODE",
-    ".css": "CODE",
-    ".java": "CODE",
-    ".c": "CODE",
-    ".cpp": "CODE",
-    ".go": "CODE",
-    ".sh": "CODE",
-    ".zip": "ARCHIVES",
-    ".tar": "ARCHIVES",
-    ".gz": "ARCHIVES",
-    ".rar": "ARCHIVES",
-    ".7z": "ARCHIVES",
-    ".mp3": "AUDIO",
-    ".wav": "AUDIO",
-    ".flac": "AUDIO",
-    ".mp4": "VIDEO",
-    ".mov": "VIDEO",
-    ".mkv": "VIDEO",
-    ".avi": "VIDEO",
-    ".jpg": "IMAGES",
-    ".jpeg": "IMAGES",
-    ".png": "IMAGES",
-    ".gif": "IMAGES",
-    ".svg": "IMAGES",
-    ".webp": "IMAGES",
-    ".ico": "IMAGES",
-    "_": "REMNANT",
-}
+try:
+    with open("./file_map.json", "r") as file_mapping:
+        file_map = json.load(file_mapping)
+except FileNotFoundError as e:
+    print(f"Error: {e}")
+except json.JSONDecodeError as e:
+    print(f"Invalid JSON format: {e}")
 
 folder_path = input("Please enter the full path to the folder to organize: ")
 working_dir = Path(folder_path)
@@ -52,13 +17,6 @@ working_dir = Path(folder_path)
 if not working_dir.exists() or not working_dir.is_dir():
     print(f"Error: {working_dir} is not valid")
     sys.exit(1)
-
-
-# for folder in file_map.values():
-#     try:
-#         (working_dir / folder).mkdir(parents=True, exist_ok=True)
-#     except Exception as e:
-#         print(f"Error creating folder '{folder}': {e}")
 
 
 def create_folder(folder):
@@ -84,7 +42,6 @@ def move_files():
 
         create_folder(folder)
 
-        # destination_dir = Path(file_map.get(extension, file_map["_"]))
         destination_dir = working_dir / file_map.get(extension, file_map["_"])
         destination = destination_dir / file_path.name
 
