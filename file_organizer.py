@@ -3,15 +3,19 @@ import sys
 import time
 from pathlib import Path
 
-try:
-    with open("./file_map.json", "r") as file_mapping:
-        file_map = json.load(file_mapping)
-except FileNotFoundError as e:
-    print(f"Error: {e}")
-    sys.exit(1)
-except json.JSONDecodeError as e:
-    print(f"Invalid JSON format: {e}")
-    sys.exit(1)
+
+def load_file_mapping():
+    try:
+        with open("./file_map.json", "r") as file_mapping:
+            global file_map
+            file_map = json.load(file_mapping)
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+    except json.JSONDecodeError as e:
+        print(f"Invalid JSON format: {e}")
+        sys.exit(1)
+
 
 folder_path = input("Please enter the full path to the folder to organize: ").strip()
 working_dir = Path(folder_path)
@@ -30,6 +34,9 @@ def create_folder(folder):
         except Exception as e:
             print(f"Error creating folder '{folder_path}': {e}")
             sys.exit(1)
+
+
+load_file_mapping()
 
 
 def move_files():
