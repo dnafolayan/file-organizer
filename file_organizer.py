@@ -8,6 +8,7 @@ def load_file_mapping():
     try:
         with open("./file_map.json", "r") as file_mapping:
             global file_map
+
             file_map = json.load(file_mapping)
     except FileNotFoundError as e:
         print(f"Error: {e}")
